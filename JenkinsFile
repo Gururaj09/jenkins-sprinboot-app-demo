@@ -22,9 +22,8 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('SonarQube') {
-                    // This uses the tool configured in Jenkins
                     sh '''
-                        // If using tool installation, or you can point to the absolute path if installed via Jenkins tool auto-installer
+                        # Ensure sonar-scanner is available or use its absolute path here if needed
                         sonar-scanner \
                         -Dsonar.projectKey=spring-boot-app \
                         -Dsonar.projectName="Spring Boot App" \
@@ -35,6 +34,7 @@ pipeline {
                 }
             }
         }
+        
         stage('Build Docker Image') {
             steps {
                 script {
