@@ -21,7 +21,7 @@ pipeline {
 
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('SonarQubeServer') { // Ensure this matches your Jenkins SonarQube server name
+                withSonarQubeEnv('SonarQube') { // Ensure this matches your Jenkins SonarQube server name
                     sh 'sonar-scanner \
                     -Dsonar.projectKey=spring-boot-app \
                     -Dsonar.projectName="Spring Boot App" \
