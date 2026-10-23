@@ -19,7 +19,7 @@ pipeline {
             }
         }
 
-        tage('SonarQube Analysis') {
+        stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('SonarQubeServer') { // Ensure this matches your Jenkins SonarQube server name
                     sh 'sonar-scanner \
