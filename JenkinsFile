@@ -19,15 +19,18 @@ pipeline {
             }
         }
 
-        stage('SonarQube Analysis') {
+        tage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('SonarQube') {
-                    // Uses the SonarQube Maven plugin directly
-                    sh 'mvn sonar:sonar'
+                withSonarQubeEnv('SonarQubeServer') { // Ensure this matches your Jenkins SonarQube server name
+                    sh 'sonar-scanner \
+                    -Dsonar.projectKey=spring-boot-app \
+                    -Dsonar.projectName="Spring Boot App" \
+                    -Dsonar.sources=src/main/java \
+                    -Dsonar.tests=src/test/java \
+                    -Dsonar.java.binaries=target/classes'
                 }
             }
         }
-
         stage('Build Docker Image') {
             steps {
                 script {
