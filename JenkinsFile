@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    tools {
-        jdk 'JDK 17'
-        maven 'Maven 3' // Change to gradle if your project uses Gradle
-    }
-
     environment {
         DOCKER_IMAGE = 'spring-boot-app'
         // Define your SonarQube server scanner configuration name from Jenkins Global Tool Configuration
