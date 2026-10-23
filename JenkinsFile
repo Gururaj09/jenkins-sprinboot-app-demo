@@ -3,8 +3,6 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = 'spring-boot-app'
-        // Define your SonarQube server scanner configuration name from Jenkins Global Tool Configuration
-        SCANNER_HOME = tool 'SonarQubeScanner' 
     }
 
     stages {
@@ -16,26 +14,16 @@ pipeline {
 
         stage('Build & Test') {
             steps {
-                // For Maven projects (includes running unit tests needed for code coverage reports)
+                // Relies on Maven installed on the host/agent system PATH
                 sh 'mvn clean package'
             }
         }
 
         stage('SonarQube Analysis') {
             steps {
-                // Use the SonarQube server configuration defined in Jenkins
                 withSonarQubeEnv('SonarQubeServer') {
-                    // For Maven projects, you can use the built-in Maven plugin goal:
+                    // Uses the SonarQube Maven plugin directly
                     sh 'mvn sonar:sonar'
-                    
-                    /* If you are using the generic SonarQube Scanner instead, use this:
-                    sh "${SCANNER_HOME}/bin/sonar-scanner \
-                    -Dsonar.projectKey=spring-boot-app \
-                    -Dsonar.projectName='Spring Boot App' \
-                    -Dsonar.sources=src/main/java \
-                    -Dsonar.tests=src/test/java \
-                    -Dsonar.java.binaries=target/classes"
-                    */
                 }
             }
         }
