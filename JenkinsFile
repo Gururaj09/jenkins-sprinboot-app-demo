@@ -21,7 +21,7 @@ pipeline {
 
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('SonarQubeServer') {
+                withSonarQubeEnv('SonarQube') {
                     // Uses the SonarQube Maven plugin directly
                     sh 'mvn sonar:sonar'
                 }
